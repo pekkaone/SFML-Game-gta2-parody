@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Concious_Stupidity/Concious_Stupidity.vcxproj" Id="2bd2124e-6b27-4170-99bc-d584bd8a9c2b" />
+</Solution>
