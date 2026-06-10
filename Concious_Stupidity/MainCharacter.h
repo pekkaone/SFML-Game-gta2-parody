@@ -1,10 +1,15 @@
 #pragma once
 
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
+#include "Item.h"
 #include "Engine.h"
 
 enum PLAYER_ANIMATION_STATES {IDLE =0, MOVING, JUMPING, LANDING};
+
+typedef std::unique_ptr<Item> ItemRef;
 
 class MainCharacter {
 public:
@@ -12,8 +17,14 @@ public:
 
 	void init();
 
-	void moving(sf::View view);
+	sf::Sprite& getCharacterSprite();
+	std::vector<ItemRef>& getInventory();
+	void pushItemInventory(ItemRef&& itm);
 
+	void initExistedItems();
+
+	void moving(sf::View view);
+	void SlotChange();
 	void update();
 
 	void render(sf::RenderTarget& target);
@@ -27,20 +38,6 @@ private:
 	float Velocity;
 	sf::Sound sound;
 
-	struct Item {
-		GameDataRef data;
-		Item(GameDataRef data) : data(data) {};
-		MainCharacter* owner;
-
-		float direction;
-		int item_number;
-		int slot_number;
-		sf::Sprite itemS;
-		void ItemAction();
-		void renderItem(sf::RenderTarget& target);
-	};
 	int currentSlot = 0;
-	std::vector<Item> inventory;
-
-	sf::Sprite& getCharacterSprite();
+	std::vector<ItemRef> inventory;
 };

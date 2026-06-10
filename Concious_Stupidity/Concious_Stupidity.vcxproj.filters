@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Entities\Images">
       <UniqueIdentifier>{9962e24e-5562-4a4a-9c57-22831c0323aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Items">
+      <UniqueIdentifier>{254b4608-66e3-472f-8894-34c5b24de21a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,6 +45,12 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullets.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.h">
@@ -61,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="MainCharacter.h">
       <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullets.h">
+      <Filter>Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

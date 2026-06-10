@@ -146,16 +146,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="Bullets.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MainCharacter.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />

@@ -27,7 +27,7 @@ void GameState::handleevent()
 void GameState::update(float dt)
 {
 	b.moving(view);
-	b.inventoryAction();
+	b.update();
 }
 
 void GameState::renderBG()
