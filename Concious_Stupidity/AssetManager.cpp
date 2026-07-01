@@ -51,7 +51,7 @@ void AssetManager::loadSound(std::string name, std::string fileName)
 	}
 	else
 	{
-		std::cout << "PROBLEM HERE";
+		throw std::runtime_error("File not loaded");
 	}
 }
 

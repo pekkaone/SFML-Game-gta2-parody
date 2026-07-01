@@ -1,8 +1,12 @@
 #pragma once
 
+#include "Landscape.h"
 #include "State.h"
 #include "Engine.h"
 #include "MainCharacter.h"
+#include "Car.h"
+#include "BulletsConfig.h"
+#include "NPC.h"
 
 class GameState : public State
 {
@@ -12,6 +16,7 @@ public:
 	void handleevent();
 
 	void init();
+
 	void update(float dt);
 
 	void renderBG();
@@ -19,10 +24,11 @@ public:
 private:
 	GameDataRef _data;
 	MainCharacter b;
+	Car car1;
+	Landscape landscape;
+	BulletConfig BConfig;
+	NPC npc;
 
 	sf::Sprite BG;
 	sf::View view;
-	
-	
-
 };

@@ -20,6 +20,9 @@ struct GameData
 	sf::RenderWindow* window;
 	sf::VideoMode videomode;
 	int volume = 100;
+	float PlayerState = 1; // 1 = normal, 2 = car, 1.5 switching from car to player
+	float E_Pressed = 0;
+	sf::View view;
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;

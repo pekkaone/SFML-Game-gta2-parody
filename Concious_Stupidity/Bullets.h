@@ -4,6 +4,8 @@
 class Bullet
 {
 public:
+	Bullet(float rotation, sf::Vector2f ItemPos);
+
 	void init();
 
 	void Update();

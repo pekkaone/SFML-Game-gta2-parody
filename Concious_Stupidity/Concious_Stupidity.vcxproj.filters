@@ -25,6 +25,9 @@
     <Filter Include="Items">
       <UniqueIdentifier>{254b4608-66e3-472f-8894-34c5b24de21a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obstacles">
+      <UniqueIdentifier>{b87126cf-feaf-444f-8e62-a68562723d89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +54,21 @@
     <ClCompile Include="Bullets.cpp">
       <Filter>Items</Filter>
     </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Landscape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletsConfig.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.h">
@@ -76,6 +94,24 @@
     </ClInclude>
     <ClInclude Include="Bullets.h">
       <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Landscape.h">
+      <Filter>Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletsConfig.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

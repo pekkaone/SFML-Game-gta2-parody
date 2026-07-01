@@ -1,21 +1,14 @@
 #include "Item.h"
 #include "MainCharacter.h"
 
-Pistol::Pistol(GameDataRef data) : _data(data) {}
+Pistol::Pistol(GameDataRef data, BulletConfig& BConfig) : _data(data), Bconfig(BConfig) {}
 
 void Pistol::init()
 {
 	_data->assets.loadTexture("pistol1", "Entities_Sprites/gun-pistol1.png");
 	item_number = 1;
 	itemS.setTexture(_data->assets.GetTexture("pistol1"));
-}
-
-void Pistol::UpdateBullet()
-{
-	for (auto& bullet : bullets)
-	{
-		bullet.sprite.move(bullet.velocity);
-	}
+	this->itemS.setOrigin(sf::Vector2f(0.f, -25.f));
 }
 
 void Pistol::Shooting(sf::Sprite& hero)
@@ -34,28 +27,25 @@ void Pistol::Shooting(sf::Sprite& hero)
 	sf::Vector2f dir = mousePos - itemS.getPosition();
 	direction = atan2(dir.y, dir.x) * 180 / 3.14f;
 
-	this->itemS.setPosition(hero.getPosition().x + 50, hero.getPosition().y + 50);
+	this->itemS.setPosition(hero.getPosition().x + 0, hero.getPosition().y + 0);
 	this->itemS.setRotation(direction);
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePressed == 0) {
 		mousePressed = 180;
-		Bullet bullet;
+		float rot = itemS.getRotation();
 
-		bullet.direction = itemS.getRotation();
+		Bullet bullet(rot, this->itemS.getPosition());
 
-		bullet.sprite.setSize(sf::Vector2f(70.f, 20.f));
-		bullet.sprite.setPosition(this->itemS.getPosition());
-		bullet.sprite.setRotation(bullet.direction);
-
-		float radians = bullet.direction * 3.14159265f / 180.f;
-
-		bullet.velocity.x = std::cos(radians) * 15.f;
-		bullet.velocity.y = std::sin(radians) * 15.f;
-
-		bullets.push_back(bullet);
+		Bconfig.bullets.push_back(bullet);
 	}
 }
 
+void Pistol::UpdateBullet()
+{
+	for (auto& x : bullets) {
+		x.Update();
+	}
+}
 void Pistol::update(sf::Sprite& hero)
 {
 	Shooting(hero);
@@ -68,4 +58,30 @@ void Pistol::render()
 	for (auto& x : bullets) {
 		this->_data->window->draw(x.sprite);
 	}
+}
+
+Arms::Arms(GameDataRef data) : _data(data) {}
+
+void Arms::init()
+{
+	this->item_number = 0;
+}
+
+void Arms::UpdateBullet()
+{
+}
+
+void Arms::Shooting(sf::Sprite& hero)
+{
+}
+
+void Arms::update(sf::Sprite& hero)
+{
+	//nothing
+}
+
+
+void Arms::render()
+{
+	_data->window->draw(this->itemS);
 }

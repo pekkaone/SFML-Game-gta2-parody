@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include "Engine.h"
 #include "Bullets.h"
+#include "BulletsConfig.h"
 
 class Item {
 public:
@@ -17,7 +18,35 @@ public:
 class Pistol : public Item
 {
 public:
-	Pistol(GameDataRef data);
+	Pistol(GameDataRef data, BulletConfig& BConfig);
+
+	void init();
+
+	void update(sf::Sprite& hero);
+
+	void render();
+	void BulletRender();
+private:
+	GameDataRef _data;
+	BulletConfig& Bconfig;
+
+	float direction;
+	int item_number;
+	sf::Sprite itemS;
+
+	void renderItem(sf::RenderTarget& target);
+	void UpdateBullet();
+	void Shooting(sf::Sprite& hero);
+
+	float mousePressed = 0;
+
+	std::vector<Bullet> bullets;
+};
+
+class Arms : public Item
+{
+public:
+	Arms(GameDataRef data);
 
 	void init();
 
@@ -34,8 +63,5 @@ private:
 	void renderItem(sf::RenderTarget& target);
 	void UpdateBullet();
 	void Shooting(sf::Sprite& hero);
-
-	float mousePressed = 0;
-
-	std::vector<Bullet> bullets;
 };
+
