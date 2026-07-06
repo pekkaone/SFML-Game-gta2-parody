@@ -41,7 +41,6 @@ void Game_Engine::Run()
 }
 
 Game_Engine::Game_Engine() {
-	std::cout << _data->videomode.width << " " << _data->videomode.height;
 	_data->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Stay Concious", sf::Style::Titlebar | sf::Style::Close);
 	_data->window->setFramerateLimit(60);
 	_data->machine.AddState(StateRef(new GameState(_data)));

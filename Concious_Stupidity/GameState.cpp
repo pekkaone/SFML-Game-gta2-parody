@@ -5,7 +5,8 @@ GameState::GameState(GameDataRef data)
 	landscape(data),
 	car1(data, landscape), 
 	BConfig(),
-	npc(data, car1, landscape),
+	//npc(data, car1, landscape, BConfig),
+	npc_config(data, car1, landscape, BConfig),
 	b(data, car1, landscape, BConfig) {}
 
 void GameState::init()
@@ -19,7 +20,8 @@ void GameState::init()
 	b.init();
 	car1.init();
 	landscape.init();
-	npc.init();
+	//npc.init();
+	npc_config.SpawnNPCs();
 }
 
 void GameState::handleevent()
@@ -35,7 +37,8 @@ void GameState::handleevent()
 
 void GameState::update(float dt)
 {
-	npc.update();
+	//npc.update();
+	npc_config.UpdateNPCs();
 	if (this->_data->PlayerState == 2) {
 		car1.update(this->view, this->BG);
 	}
@@ -58,7 +61,8 @@ void GameState::renderBG()
 void GameState::render(float dt)
 {
 	renderBG();
-	npc.render(*_data->window);
+	//npc.render(*_data->window);
+	npc_config.RenderNPCs();
 	car1.render();
 	BConfig.RenderBullets(_data->window);
 	if (this->_data->PlayerState == 1) {

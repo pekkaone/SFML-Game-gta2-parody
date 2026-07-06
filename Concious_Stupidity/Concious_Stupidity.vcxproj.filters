@@ -69,6 +69,9 @@
     <ClCompile Include="NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NPC_Configurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.h">
@@ -111,6 +114,9 @@
       <Filter>Items</Filter>
     </ClInclude>
     <ClInclude Include="NPC.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC_Configurator.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

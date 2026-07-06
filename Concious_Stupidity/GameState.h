@@ -7,6 +7,7 @@
 #include "Car.h"
 #include "BulletsConfig.h"
 #include "NPC.h"
+#include "NPC_Configurator.h"
 
 class GameState : public State
 {
@@ -27,7 +28,8 @@ private:
 	Car car1;
 	Landscape landscape;
 	BulletConfig BConfig;
-	NPC npc;
+	//NPC npc;
+	NPC_Configurator npc_config;
 
 	sf::Sprite BG;
 	sf::View view;

@@ -157,6 +157,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NPC_Configurator.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="Landscape.h" />
     <ClInclude Include="MainCharacter.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="NPC_Configurator.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
 
 #include "StateMachine.h"
 #include "AssetManager.h"

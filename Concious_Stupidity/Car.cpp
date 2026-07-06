@@ -80,16 +80,16 @@ void Car::carMovement(sf::View view, sf::Sprite BG)
 	float oldTurn = this->CarSprite.getRotation();
 
 	up = 0, down = 0, left = 0, right = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		this->up = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		this->down = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		this->left = 1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		this->right = 1;
 	}
 
