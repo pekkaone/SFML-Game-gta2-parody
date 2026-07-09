@@ -9,29 +9,48 @@ NPC_Configurator::NPC_Configurator(GameDataRef data, Car& car, Landscape& landsc
 
 void NPC_Configurator::SpawnNPCs() // DO THIS ))))))))
 {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 50; i++) {
 		all_NPCs.emplace_back(_data, car1, land, BConfig);
 	}
 
-	int b = 0;
 	for (auto& x : all_NPCs) {
-		x.getCharacterSprite().setPosition(1500 + b, 1200);
-		b += 380;
+		int PlusX = 250 + rand() % 5000;
+		int PlusY = 250 + rand() % 3500;
+		x.getCharacterSprite().setPosition(PlusX, PlusY);
 	}
 }
 
-void NPC_Configurator::UpdateNPCs()
+void NPC_Configurator::UpdateNPCs(sf::Sprite BG)
 {
 	for (auto& x : all_NPCs) {
-		x.update();
-		std::cout << x.getCharacterSprite().getPosition().x << " " << x.getCharacterSprite().getPosition().y << "\n";
+		if (!x.DeadStatus()) {
+			x.NPCtoNPCcolision(this->all_NPCs);
+			x.update(BG);
+		}
 	}
-	std::cout << "NPCs : " << all_NPCs.size() << "\n";
 }
+
+NPC& NPC_Configurator::GetNPC(int num)
+{
+	return this->all_NPCs[num];
+}
+
 
 void NPC_Configurator::RenderNPCs()
 {
 	for (auto& x : all_NPCs) {
-		_data->window->draw(x.getCharacterSprite());
+		if (!x.DeadStatus()) {
+			_data->window->draw(x.getCharacterSprite());
+		}
 	}
 }
+
+void NPC_Configurator::RenderDeadNPCs()
+{
+	for (auto& x : all_NPCs) {
+		if (x.DeadStatus()) {
+			_data->window->draw(x.getCharacterSprite());
+		}
+	}
+}
+

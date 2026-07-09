@@ -15,10 +15,14 @@ public:
 	sf::Sprite& getCharacterSprite();
 
 	//void moving();
-	void movingSimple();
+	void movingSimple(sf::Sprite BG);
+
+	bool& DeadStatus();
 
 	void NPCCollision(sf::Vector2f oldPos);
-	void update();
+	void NPCtoNPCcolision(std::vector<NPC>& all_NPCs);
+	void update(sf::Sprite BG);
+	void MapBorders(sf::Vector2f oldPos, sf::Sprite BG);
 	void HitByCar();
 	void HitByBullet();
 

@@ -12,6 +12,13 @@ GameState::GameState(GameDataRef data)
 void GameState::init()
 {
 	_data->assets.loadTexture("BG", "images/map.png");
+	_data->assets.loadFont("Font1", "Fonts/Yuyu-Regular.ttf");
+
+	this->points.setPosition(0, 0);
+	this->points.setFont(_data->assets.GetFont("Font1"));
+	this->points.setCharacterSize(45);
+
+	_data->PointsNum = 0;
 
 	this->_data->view.setSize(1280, 720);
 	this->_data->view.setCenter(4000, 400);
@@ -35,10 +42,16 @@ void GameState::handleevent()
 	}
 }
 
+void GameState::UpdatePoints()
+{
+	this->points.setPosition(_data->view.getCenter().x - 500, _data->view.getCenter().y - 350);
+	this->points.setString("Killed: " + std::to_string(_data->PointsNum));
+}
+
 void GameState::update(float dt)
 {
 	//npc.update();
-	npc_config.UpdateNPCs();
+	npc_config.UpdateNPCs(BG);
 	if (this->_data->PlayerState == 2) {
 		car1.update(this->view, this->BG);
 	}
@@ -46,11 +59,13 @@ void GameState::update(float dt)
 		b.SwitchBetState12(car1.getCarSprite());
 	}
 	else {
-		b.moving(this->view);
+		b.moving(this->view, this->BG);
 		b.update();
+		b.NPCtoPlayer_Collisions(npc_config.all_NPCs);
 	}
 	BConfig.BulletDelete(b.getCharacterSprite().getPosition());
 	BConfig.UpdateBullets();
+	UpdatePoints();
 }
 
 void GameState::renderBG()
@@ -62,6 +77,7 @@ void GameState::render(float dt)
 {
 	renderBG();
 	//npc.render(*_data->window);
+	npc_config.RenderDeadNPCs();
 	npc_config.RenderNPCs();
 	car1.render();
 	BConfig.RenderBullets(_data->window);
@@ -69,6 +85,6 @@ void GameState::render(float dt)
 		b.render(*this->_data->window);
 	}
 	landscape.render();
-	
+	_data->window->draw(this->points);
 }
 

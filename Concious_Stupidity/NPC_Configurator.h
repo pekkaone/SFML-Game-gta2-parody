@@ -12,8 +12,10 @@ public:
 	NPC_Configurator(GameDataRef data, Car& car1, Landscape& land, BulletConfig& BConfig);
 	
 	void SpawnNPCs();
-	void UpdateNPCs();
+	void UpdateNPCs(sf::Sprite BG);
 	void RenderNPCs();
+	void RenderDeadNPCs();
+	NPC& GetNPC(int num);
 
 	std::vector<NPC> all_NPCs;
 private:

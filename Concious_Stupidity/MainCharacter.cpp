@@ -32,23 +32,23 @@ void MainCharacter::init()
 	initExistedItems();
 }
 
-void MainCharacter::moving(sf::View view)
+void MainCharacter::moving(sf::View view, sf::Sprite BG)
 {
 	moveDir = sf::Vector2f(0.f, 0.f);
 
 	sf::Vector2f oldPos = sprite.getPosition();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		moveDir.x -= 1.f;
+		moveDir.x -= 2.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		moveDir.x += 1.f;
+		moveDir.x += 2.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		moveDir.y += 1.f;
+		moveDir.y += 2.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		moveDir.y -= 1.f;
+		moveDir.y -= 2.f;
 	}
 
 	if (moveDir.x != 0.f || moveDir.y != 0.f) {
@@ -107,10 +107,34 @@ void MainCharacter::moving(sf::View view)
 	}
 
 	this->LandscapeCollision(oldPos);
-
+	
 	this->MCHitBox.setPosition(this->sprite.getPosition());
+	this->ViewUpdate(view, BG);
+}
+
+void MainCharacter::ViewUpdate(sf::View view, sf::Sprite BG)
+{
+	sf::Vector2f oldView = _data->view.getCenter();
+
 	_data->view.setCenter(this->sprite.getPosition().x + 0.f, this->sprite.getPosition().y + 0.f);
-	this->_data->window->setView(_data->view);
+
+	if (this->sprite.getPosition().x + 640 > BG.getGlobalBounds().getSize().x)
+	{
+		_data->view.setCenter(oldView.x, _data->view.getCenter().y);
+	}
+	if (this->sprite.getPosition().y + 360 > BG.getGlobalBounds().getSize().y)
+	{
+		_data->view.setCenter(_data->view.getCenter().x, oldView.y);
+	}
+	if (this->sprite.getPosition().x - 0 < 640)
+	{
+		_data->view.setCenter(oldView.x, _data->view.getCenter().y);
+	}
+	if (this->sprite.getPosition().y - 0 < 360)
+	{
+		_data->view.setCenter(_data->view.getCenter().x, oldView.y);
+	}
+	_data->window->setView(_data->view);
 }
 
 void MainCharacter::SlotChange()
@@ -197,6 +221,24 @@ void MainCharacter::LandscapeCollision(sf::Vector2f oldPos)
 		}
 	};
 	
+}
+
+void MainCharacter::NPCtoPlayer_Collisions(std::vector<NPC>& all_NPCs)
+{
+	for (int i = 0; i < all_NPCs.size(); i++) {
+		if (Collision::circleTest(this->sprite, all_NPCs[i].getCharacterSprite())) {
+			float dx = this->sprite.getPosition().x - all_NPCs[i].getCharacterSprite().getPosition().x;
+			float dy = this->sprite.getPosition().y - all_NPCs[i].getCharacterSprite().getPosition().y;
+
+			float x = sprite.getPosition().x;
+			float y = sprite.getPosition().y;
+			sprite.setPosition(x += dx / 70, y += dx / 70);
+
+			float xNPC = all_NPCs[i].getCharacterSprite().getPosition().x;
+			float yNPC = all_NPCs[i].getCharacterSprite().getPosition().y;
+			all_NPCs[i].getCharacterSprite().setPosition(xNPC -= dx / 10, yNPC -= dx / 10);
+		}
+	}
 }
 
 void MainCharacter::update()

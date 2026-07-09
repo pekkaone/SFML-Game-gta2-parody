@@ -101,18 +101,16 @@ void NPC::moving()
 	std::cout << "side: " << side << "\n";
 }
 */
-void NPC::movingSimple()
+void NPC::movingSimple(sf::Sprite BG)
 {
 	moveDir = sf::Vector2f(0.f, 0.f);
 
 	//DIRECTION CHANGE
 	if (BeenGoingEnought <= -100.f) {
 		randomDirection = rand() % 9;
-		std::cout << "b";
 		BeenGoingEnought = 200.f;
 	}
 	else if (BeenGoingEnought <= 0) {
-		std::cout << "r";
 		randomDirectionX = 0;
 		randomDirectionY = 0;
 	}
@@ -177,11 +175,14 @@ void NPC::movingSimple()
 
 	//COLLISION
 	this->NPCCollision(oldPos);
+	this->MapBorders(oldPos, BG);
 
 	this->MCHitBox.setPosition(this->sprite.getPosition());
-	std::cout << randomDirectionY << "\n";
-	std::cout << randomDirectionX << "\n";
-	std::cout << "side: " << side << "\n";
+}
+
+bool& NPC::DeadStatus()
+{
+	return this->dead;
 }
 
 void NPC::NPCCollision(sf::Vector2f oldPos)
@@ -242,40 +243,83 @@ void NPC::NPCCollision(sf::Vector2f oldPos)
 
 }
 
-void NPC::HitByCar()
+void NPC::NPCtoNPCcolision(std::vector<NPC>& all_NPCs)
 {
-	if (_data->PlayerState == 2) {
-		this->sprite.setTexture(_data->assets.GetTexture("NPCdead"));
-		this->sprite.setRotation(sprite.getRotation() - 90);
-		this->sprite.setScale(0.7f, 0.7f);
+	for (int i = 0; i < all_NPCs.size(); i++) {
+		if (Collision::circleTest(this->sprite, all_NPCs[i].getCharacterSprite())) {
+			if (!all_NPCs[i].DeadStatus()) {
+				float dx = this->sprite.getPosition().x - all_NPCs[i].getCharacterSprite().getPosition().x;
+				float dy = this->sprite.getPosition().y - all_NPCs[i].getCharacterSprite().getPosition().y;
 
-		dead = true;
+				float x = sprite.getPosition().x;
+				float y = sprite.getPosition().y;
+				sprite.setPosition(x += dx / 40, y += dx / 40);
+
+				float xNPC = all_NPCs[i].getCharacterSprite().getPosition().x;
+				float yNPC = all_NPCs[i].getCharacterSprite().getPosition().y;
+				all_NPCs[i].getCharacterSprite().setPosition(xNPC -= dx / 10, yNPC -= dx / 10);
+			}
+		}
 	}
 }
 
-void NPC::HitByBullet()
+void NPC::MapBorders(sf::Vector2f oldPos, sf::Sprite BG)
 {
-	for (auto bullet : BConfig.bullets) {
-		if (this->sprite.getGlobalBounds().intersects(bullet.sprite.getGlobalBounds())) {
+	if (this->sprite.getPosition().x + 0 > BG.getGlobalBounds().getSize().x)
+	{
+		sprite.setPosition(oldPos.x, sprite.getPosition().y);
+	}
+	if (this->sprite.getPosition().y + 0 > BG.getGlobalBounds().getSize().y)
+	{
+		sprite.setPosition(sprite.getPosition().x, oldPos.y);
+	}
+	if (this->sprite.getPosition().x - 0 < 200)
+	{
+		sprite.setPosition(oldPos.x, sprite.getPosition().y);
+	}
+	if (this->sprite.getPosition().y - 0 < 200)
+	{
+		sprite.setPosition(sprite.getPosition().x, oldPos.y);
+	}
+}
+
+void NPC::HitByCar()
+{
+	if (!dead) {
+		if (_data->PlayerState == 2) {
 			this->sprite.setTexture(_data->assets.GetTexture("NPCdead"));
 			this->sprite.setRotation(sprite.getRotation() - 90);
 			this->sprite.setScale(0.7f, 0.7f);
 
 			dead = true;
+			_data->PointsNum += 1;
 		}
 	}
-	
 }
 
-
-void NPC::update()
+void NPC::HitByBullet()
 {
 	if (!dead) {
-		this->movingSimple();
+		for (auto bullet : BConfig.bullets) {
+			if (this->sprite.getGlobalBounds().intersects(bullet.sprite.getGlobalBounds())) {
+				this->sprite.setTexture(_data->assets.GetTexture("NPCdead"));
+				this->sprite.setRotation(sprite.getRotation() - 90);
+				this->sprite.setScale(0.7f, 0.7f);
+
+				dead = true;
+				_data->PointsNum += 1;
+			}
+		}
+	}
+}
+
+void NPC::update(sf::Sprite BG)
+{
+	if (!dead) {
+		this->movingSimple(BG);
 		this->HitByBullet();
 	}
 }
-
 
 void NPC::render(sf::RenderTarget& target)
 {

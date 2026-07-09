@@ -18,6 +18,7 @@ public:
 
 	void init();
 
+	void UpdatePoints();
 	void update(float dt);
 
 	void renderBG();
@@ -31,6 +32,7 @@ private:
 	//NPC npc;
 	NPC_Configurator npc_config;
 
+	sf::Text points;
 	sf::Sprite BG;
 	sf::View view;
 };

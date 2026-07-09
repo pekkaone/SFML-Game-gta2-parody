@@ -10,6 +10,7 @@
 #include "Collision.h"
 #include "Landscape.h"
 #include "BulletsConfig.h"
+#include "NPC.h"
 
 enum PLAYER_ANIMATION_STATES {IDLE =0, MOVING, JUMPING, LANDING};
 
@@ -27,11 +28,13 @@ public:
 
 	void initExistedItems();
 
-	void moving(sf::View view);
+	void moving(sf::View view, sf::Sprite BG);
+	void ViewUpdate(sf::View view, sf::Sprite BG);
 	void SlotChange();
 	void GetInCar();
 	void SwitchBetState12(sf::Sprite exitPos);
 	void LandscapeCollision(sf::Vector2f oldPos);
+	void NPCtoPlayer_Collisions(std::vector<NPC>& all_NPCs);
 	void update();
 
 	void render(sf::RenderTarget& target);

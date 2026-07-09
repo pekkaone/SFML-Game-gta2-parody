@@ -24,6 +24,7 @@ struct GameData
 	float PlayerState = 1; // 1 = normal, 2 = car, 1.5 switching from car to player
 	float E_Pressed = 0;
 	sf::View view;
+	int PointsNum;
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;
