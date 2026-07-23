@@ -219,7 +219,7 @@ void NPC::NPCCollision(sf::Vector2f oldPos)
 
 	if (Collision::boundingBoxTest(sprite, car1.getCarSprite())) {
 		if (Collision::pixelPerfectTest(sprite, car1.getCarSprite())) {
-			int xPush = -10, yPush = -15;
+			float xPush = -10, yPush = -15;
 			if (Stuck) {
 				xPush *= -10;
 				yPush *= -10;

@@ -9,6 +9,7 @@
 #include "NPC.h"
 #include "NPC_Configurator.h"
 
+
 class GameState : public State
 {
 public:
@@ -18,6 +19,7 @@ public:
 
 	void init();
 
+	void MinusDelay();
 	void UpdatePoints();
 	void update(float dt);
 
@@ -32,6 +34,7 @@ private:
 	//NPC npc;
 	NPC_Configurator npc_config;
 
+	float StatesDelay;
 	sf::Text points;
 	sf::Sprite BG;
 	sf::View view;

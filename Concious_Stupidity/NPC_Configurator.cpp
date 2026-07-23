@@ -14,8 +14,8 @@ void NPC_Configurator::SpawnNPCs() // DO THIS ))))))))
 	}
 
 	for (auto& x : all_NPCs) {
-		int PlusX = 250 + rand() % 5000;
-		int PlusY = 250 + rand() % 3500;
+		float PlusX = 250 + rand() % 5000;
+		float PlusY = 250 + rand() % 3500;
 		x.getCharacterSprite().setPosition(PlusX, PlusY);
 	}
 }

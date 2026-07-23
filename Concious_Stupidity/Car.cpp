@@ -26,18 +26,18 @@ void Car::init()
 	this->ActionBox.setPosition(1200, 1100);
 	this->ActionBox.setSize(sf::Vector2f(200.f, 350.f));
 	this->ActionBox.setOrigin(sf::Vector2f(100.f, 125.f));
-	this->ActionBox.setScale(1.6, 1.6);
+	this->ActionBox.setScale(1.6f, 1.6f);
 	this->ActionBox.setFillColor(sf::Color::Transparent);
 
 	x = 1200;
 	y = 1100;
 
-	angle = 1.599;
+	angle = 1.599f;
 	speed = 0;
 	max_speed = 15;
-	acc = 0.2;
-	decc = 0.3;
-	turnSpeed = 0.08;
+	acc = 0.2f;
+	decc = 0.3f;
+	turnSpeed = 0.08f;
 	CarSprite.setRotation(angle * 180 / 3.141592);
 
 	ActionBox.setPosition(this->CarSprite.getPosition());
@@ -64,12 +64,18 @@ sf::Vector2f& Car::getTrackingPTN()
 void Car::CarSound()
 {
 	if (this->speed >= 0) {
-		this->Driving.setVolume(this->speed);
+		this->Driving.setVolume(this->speed * _data->volume/100);
+	}
+	else if (this->speed < 0) {
+		this->Driving.setVolume(this->speed * -1 * _data->volume / 100);
 	}
 	if (this->Driving.getStatus() == sf::Sound::Playing) {
 
 	}
 	else if (this->speed > 0) {
+		this->Driving.play();
+	}
+	else if (this->speed < 0) {
 		this->Driving.play();
 	}
 }
@@ -115,7 +121,7 @@ void Car::carMovement(sf::View view, sf::Sprite BG)
 	
 	y -= cos(angle) * speed;
 	
-	CarSprite.setRotation(angle * 180 / 3.141592);
+	CarSprite.setRotation(angle * 180.f / 3.141592f);
 	CarSprite.setPosition(x, CarSprite.getPosition().y);
 	CarSprite.setPosition(CarSprite.getPosition().x, y);
 	Collisions(oldPos, oldTurn);
@@ -170,6 +176,7 @@ void Car::getOutofCar()
 		started = false;
 		_data->PlayerState = 1.5;
 		_data->E_Pressed = 100;
+		this->CarClose.setVolume(_data->volume);
 		this->CarClose.play();
 		speed = 0;
 	}

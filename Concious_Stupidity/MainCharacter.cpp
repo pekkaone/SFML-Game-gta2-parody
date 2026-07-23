@@ -39,16 +39,16 @@ void MainCharacter::moving(sf::View view, sf::Sprite BG)
 	sf::Vector2f oldPos = sprite.getPosition();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		moveDir.x -= 2.f;
+		moveDir.x -= 5.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		moveDir.x += 2.f;
+		moveDir.x += 5.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		moveDir.y += 2.f;
+		moveDir.y += 5.f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		moveDir.y -= 2.f;
+		moveDir.y -= 5.f;
 	}
 
 	if (moveDir.x != 0.f || moveDir.y != 0.f) {
@@ -93,7 +93,7 @@ void MainCharacter::moving(sf::View view, sf::Sprite BG)
 	
 	if (Collision::boundingBoxTest(sprite, car1.getCarSprite())) {
 		if (Collision::pixelPerfectTest(sprite, car1.getCarSprite())) {
-			int xPush = -10, yPush = -15;
+			float xPush = -10, yPush = -15;
 			if (Stuck) {
 				xPush *= -10;
 				yPush *= -10;
@@ -198,6 +198,7 @@ void MainCharacter::GetInCar()
 			_data->PlayerState = 2;
 			std::cout << "Entered the Car";
 			_data->E_Pressed = 100;
+			CarOpen.setVolume(_data->volume);
 			CarOpen.play();
 		}
 	}
@@ -226,17 +227,19 @@ void MainCharacter::LandscapeCollision(sf::Vector2f oldPos)
 void MainCharacter::NPCtoPlayer_Collisions(std::vector<NPC>& all_NPCs)
 {
 	for (int i = 0; i < all_NPCs.size(); i++) {
-		if (Collision::circleTest(this->sprite, all_NPCs[i].getCharacterSprite())) {
-			float dx = this->sprite.getPosition().x - all_NPCs[i].getCharacterSprite().getPosition().x;
-			float dy = this->sprite.getPosition().y - all_NPCs[i].getCharacterSprite().getPosition().y;
+		if (!all_NPCs[i].DeadStatus()) {
+			if (Collision::circleTest(this->sprite, all_NPCs[i].getCharacterSprite())) {
+				float dx = this->sprite.getPosition().x - all_NPCs[i].getCharacterSprite().getPosition().x;
+				float dy = this->sprite.getPosition().y - all_NPCs[i].getCharacterSprite().getPosition().y;
 
-			float x = sprite.getPosition().x;
-			float y = sprite.getPosition().y;
-			sprite.setPosition(x += dx / 70, y += dx / 70);
+				float x = sprite.getPosition().x;
+				float y = sprite.getPosition().y;
+				sprite.setPosition(x += dx / 70, y += dx / 70);
 
-			float xNPC = all_NPCs[i].getCharacterSprite().getPosition().x;
-			float yNPC = all_NPCs[i].getCharacterSprite().getPosition().y;
-			all_NPCs[i].getCharacterSprite().setPosition(xNPC -= dx / 10, yNPC -= dx / 10);
+				float xNPC = all_NPCs[i].getCharacterSprite().getPosition().x;
+				float yNPC = all_NPCs[i].getCharacterSprite().getPosition().y;
+				all_NPCs[i].getCharacterSprite().setPosition(xNPC -= dx / 10, yNPC -= dx / 10);
+			}
 		}
 	}
 }

@@ -12,15 +12,15 @@ void Landscape::init()
 
 	home.sprite.setTexture(_data->assets.GetTexture("home"));
 	home.sprite.setPosition(1000, 50);
-	home.sprite.setScale(1.4, 1.4);
+	home.sprite.setScale(1.4f, 1.4f);
 
 	home2.sprite.setTexture(_data->assets.GetTexture("home"));
 	home2.sprite.setPosition(1000, 1500);
-	home2.sprite.setScale(1.4, 1.4);
+	home2.sprite.setScale(1.4f, 1.4f);
 
 	home3.sprite.setTexture(_data->assets.GetTexture("home"));
 	home3.sprite.setPosition(3280, 1280);
-	home3.sprite.setScale(1.1, 1.2);
+	home3.sprite.setScale(1.1f, 1.2f);
 
 	TrafficLighting();
 
@@ -47,8 +47,8 @@ void Landscape::TrafficLighting()
 	for (LandOb & x : TrafficLights) {
 			x.sprite.setTexture(_data->assets.GetTexture("TF"));
 			x.sprite.setScale(1.2f, 1.2f);
-			x.sprite.setPosition(1200 + i, 900);
-			i += 380;
+			x.sprite.setPosition(1200.f + i, 900);
+			i += 380.f;
 	}
 
 	for (auto x : TrafficLights) {

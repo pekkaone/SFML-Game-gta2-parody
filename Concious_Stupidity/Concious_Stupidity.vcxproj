@@ -158,6 +158,8 @@
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="NPC_Configurator.cpp" />
+    <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="SettingState.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +173,12 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Landscape.h" />
     <ClInclude Include="MainCharacter.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="NPC_Configurator.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="PauseState.h" />
+    <ClInclude Include="SettingState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
